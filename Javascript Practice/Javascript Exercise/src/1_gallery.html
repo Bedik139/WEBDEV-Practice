@@ -6,19 +6,35 @@
 <SCRIPT>
 
 // TODO: Fill up with the correct codes
+var img;
+
 function showFirstImage()
 {
-	// Your code here:
+	img = document.getElementById("imgRep");
+	img.src = "../assets/smiley.png";
+	
+	document.getElementById("textHere").value="smiley Face!";
+	
 }
 
 function showSecondImage()
 {
-	// Your code here:
+	img = document.getElementById("imgRep");
+	img.src = "../assets/jack.jpg";
+	img.style="display:all";
+
+	document.getElementById("textHere").value="Jack THE PUG";
+
+
 }
 
 function showThirdImage()
 {
-	// Your code here:
+	img = document.getElementById("imgRep");
+	img.src = "../assets/oreo.png";
+	img.style="display:all";
+
+	document.getElementById("textHere").value="oreo";
 }
 
 </SCRIPT>
@@ -28,11 +44,12 @@ function showThirdImage()
 
 <BODY BGCOLOR="#FFFFFF">
 
-<img src="blank.png" id="imagePanel">
+<img src="/assets/smiley.png" id="imgRep" width="250" height="250" >
+
 
 <!-- RIP CAPS LOCK AT THIS POINT XD -->
-<FORM METHOD=POST ACTION="none" NAME="statusForm">
-<INPUT TYPE=text NAME="statusText" SIZE=10 id="textHere"></FORM>
+<FORM METHOD=POST ACTION="none" NAME="statusForm"><br>	
+<INPUT TYPE=text NAME="statusText" SIZE=10 id="textHere"></FORM> 
 <TABLE BORDER=0>
 <TR><TD><FORM>
 <INPUT TYPE=button NAME="firstImage" onClick="showFirstImage()" VALUE="First Image"></FORM>
