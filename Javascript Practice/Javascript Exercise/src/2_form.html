@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+	function checkForm()
+	{
+		var valid = false;
+
+		// TODO: Your code here
+		
+		return valid;			
+	}	
+	</script>
+    </head>
+
+    <body>
+        <form action = "http://www.google.com" onSubmit = "return checkForm()">
+        <table border = 1 align = "center">
+            <tr>
+                <td>First Name:</td>
+                <td><input type = text id = firstname size = 25</td>
+            </tr>
+	    <tr>
+                <td>Last Name:</td>
+                <td><input type = text id = lastname size = 25</td>
+            </tr>
+	    <tr>
+                <td>E-mail:</td>
+                <td><input type = text id = email size = 25</td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type = password id = password1 size = 25</td>
+            </tr>
+            <tr>
+                <td>Confirm Password:</td>
+                <td><input type = password id = password2 size = 25></td>
+            </tr>
+            <tr>
+                <td colspan = 2 align = "right">
+                <input type = submit value = "Submit"></td>
+            </tr>
+        </table>
+        </form>
+    </body>
+</html>    
+      
