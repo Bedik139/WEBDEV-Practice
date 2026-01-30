@@ -1,0 +1,16 @@
+*{
+    margin: 0%;
+}
+
+body{
+    font-family: "Times New Roman";
+}
+
+.show{
+    display: block !important;
+    color: blue;
+    font-weight: bold;
+}
+#popup{
+    display: none;
+}   

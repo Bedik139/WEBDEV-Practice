@@ -21,12 +21,12 @@ $(document).ready(function() {
 
     function initialize(){
         dir = "right";
-        score = 0;
         create_Worm();
         create_food();
         if(typeof game_loop != "undefined")
             clearInterval(game_loop);
         game_loop = setInterval(paint, 45);
+        score = 0;
     }
 
     function create_Worm(){
@@ -63,7 +63,8 @@ $(document).ready(function() {
         else if(dir == "up") headY--;
         else if(dir == "down") headY++;
 
-        if(headX == -1 || headX == w/cw || headY == -1 || headY == h/cw || checkBody(headX, headY, worm_array)){
+        if(headX == -1 || headX == w/cw || headY == -1 || headY == h/cw || 
+            checkBody(headX, headY, worm_array)){
             initialize();
             return;
         }
@@ -79,7 +80,7 @@ $(document).ready(function() {
         }
         else {
             var tail = worm_array.pop();
-            tail.x = headX;
+            tail.x = headX ;
             tail.y = headY;
         }
 
@@ -87,7 +88,7 @@ $(document).ready(function() {
 
         for(var i=0;i<worm_array.length;i++){
             var c = worm_array[i];
-            paint_cell(c.x,c.y, "black");
+            paint_cell(c.x,c.y, "red");
         }
         paint_cell(food.x,food.y, "green");
     }

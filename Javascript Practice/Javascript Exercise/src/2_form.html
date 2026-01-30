@@ -1,20 +1,38 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script>
-	function checkForm()
-	{
-		var valid = false;
+        <link rel = stylehseet type = "text/css" media = "all" href = "../assets/css/style.css">
+    <script>
+        function checkForm() {
+            var valid = true; 
+            var inputs = document.getElementsByTagName("input"); 
 
-		// TODO: Your code here
-		
-		return valid;			
-	}	
+            for(var i = 0; i < inputs.length; i++) {
+                if(inputs[i].type == "text" || inputs[i].type == "password") {
+                    if(inputs[i].value == "") {
+                        inputs[i].style.backgroundColor = "Red";
+                        valid = false; 
+                    } else {
+                        inputs[i].style.backgroundColor = ""; 
+                    }
+                }
+            }
+
+            if(valid) {
+                alert("Form is valid! Submitting...");
+                var popup = document.getElementById("myPopup");
+                if(popup) popup.classList.toggle("show");
+            } else {
+                alert("Please fill in the red fields.");
+            }
+
+            return valid; 
+        }   
 	</script>
     </head>
-
     <body>
-        <form action = "http://www.google.com" onSubmit = "return checkForm()">
+        <span id="popup"></span>
+        <form onSubmit = "return checkForm()">
         <table border = 1 align = "center">
             <tr>
                 <td>First Name:</td>
