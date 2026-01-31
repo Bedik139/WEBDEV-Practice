@@ -120,7 +120,7 @@ function winner(){
 async function result() {
     const verdict = document.getElementById("Verdict");
     cRound = document.getElementById("round");
-    cRound.innerHTML = "Round: " + round++;
+        cRound.innerHTML = "Round: " + round++;
 
     //to show actual winner
     if (winner()) {
