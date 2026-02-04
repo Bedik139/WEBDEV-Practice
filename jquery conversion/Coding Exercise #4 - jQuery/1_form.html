@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src = "jquery-4.0.0.min.js"></script>
+		<script>
+			function checkForm()
+			{
+				var firstName = $("#firstname").val();
+				var lastName = $("#lastname").val();
+				var email = $("#email").val();
+				var password1 = $("#password1").val();
+				var password2 = $("#password2").val();		
+
+				console.log(password2);
+
+				var valid = false;		
+				var all_fields = true;
+				if (firstName == "")
+				{
+					all_fields = false;
+					$("#firstname").css("background-color", "red");
+				}
+				else
+					$("#firstname").css("background-color","white");
+
+				if (lastName == "")
+				{
+					all_fields = false;
+					$("#lastname").css("background-color", "red");
+				}
+				else
+					$("#lastname").css("background-color", "white");
+				if (email == "")
+				{
+					all_fields = false;
+					$("#email").css("background-color", "red");
+				}
+				else
+					$("#email").css("background-color", "white");
+				if (password1 == "")
+				{
+					all_fields = false;
+					$("#password1").css("background-color", "red");
+				}
+				else
+					$("#password1").css("background-color", "white");
+				if (password2 == "")
+				{
+					all_fields = false;
+					$("#password2").css("background-color", "red");
+				}
+				else
+					$("#password2").css("background-color","white")
+				if (all_fields == true)
+				{
+					if (password1 == password2)
+					{
+						alert("Welcome "+firstName+" "+lastName);
+						valid = true;
+					}
+					else
+					{
+						$("#password1").css("background-color", "red");
+						$("#password2").css("background-color", "red");
+					}
+				}
+				return valid;	
+			}	
+		</script>
+    </head>
+
+    <body>
+        <form action = "http://www.google.com" onSubmit = "return checkForm()">
+        <table border=1 align="center">
+            <tr>
+                <td>First Name:</td>
+                <td><input type = text id = "firstname" size = 25></td>
+            </tr>
+	    <tr>
+                <td>Last Name:</td>
+                <td><input type = text id = lastname size = 25></td>
+            </tr>
+	    <tr>
+                <td>E-mail:</td>
+                <td><input type = text id = email size = 25></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type = password id = password1 size = 25></td>
+            </tr>
+            <tr>
+                <td>Confirm Password:</td>
+                <td><input type = password id = password2 size = 25></td>
+            </tr>
+            <tr>
+                <td colspan = 2 align = "right">
+                <input type = submit value = "Submit"></td>
+            </tr>
+        </table>
+        </form>
+    </body>
+</html>          

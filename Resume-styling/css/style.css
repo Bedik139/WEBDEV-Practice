@@ -1,0 +1,86 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+    line-height: 22px;
+    font: 17px Times;
+}
+
+.body div{
+    margin: 40px auto 60px;
+    width: 805px;
+}
+
+.body img{
+    height: 303px;
+    width: 293px;
+    float: right;
+    margin: -30px 0 0 0;
+}
+
+.body h1{
+    margin: 0 0 17px 0;
+    padding: 0 0 17px 0;
+    font-size: 43px;
+    font-weight: bold;
+    letter-spacing: -3px;
+    border-bottom: 1px solid rgb(130 129 129);
+}
+
+.contact{
+    margin: 0 0 16px 0;
+}
+
+.email-link{
+    color:rgb(115 113 113);
+    text-decoration: none;
+    border-bottom: 1px dotted #999;
+}
+
+.email-link:hover{
+    border-bottom-style: solid;
+    color: blue;
+}
+
+.obj{
+    width: 500px;
+    float: left;
+    font-family: Helvetica;
+    font-style: italic;
+    color: #666;
+}
+
+.component{
+    font-style: italic;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: right;
+    padding: 0 26px 0 0;
+    width: 150px;
+    float:left;
+    height: 100px;
+    border-right: 1px solid rgb(115 113 113)
+}
+
+.component-desc{
+    font-size: 20px;
+    margin: 0 0 6px 0;
+    position: relative;
+}
+
+.date{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-style: italic;
+    font: Arial;
+    font-size: 16px;
+    color: #998;
+    font-weight: normal;
+}
+
+.ul{
+    margin: 0 0 32px 17px;
+}
