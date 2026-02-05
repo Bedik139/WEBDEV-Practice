@@ -5,22 +5,22 @@
 
 body{
     line-height: 22px;
-    font: 17px Times;
+    font: 16px Times;
 }
 
-.body div{
+.body-wrap{
     margin: 40px auto 60px;
     width: 805px;
 }
 
-.body img{
+.body-img{
     height: 303px;
     width: 293px;
     float: right;
     margin: -30px 0 0 0;
 }
 
-.body h1{
+h1{
     margin: 0 0 17px 0;
     padding: 0 0 17px 0;
     font-size: 43px;
@@ -29,7 +29,7 @@ body{
     border-bottom: 1px solid rgb(130 129 129);
 }
 
-.contact{
+p{
     margin: 0 0 16px 0;
 }
 
@@ -52,7 +52,7 @@ body{
     color: #666;
 }
 
-.component{
+dt{
     font-style: italic;
     font-weight: bold;
     font-size: 18px;
@@ -64,23 +64,39 @@ body{
     border-right: 1px solid rgb(115 113 113)
 }
 
-.component-desc{
+h2{
     font-size: 20px;
     margin: 0 0 6px 0;
     position: relative;
 }
 
-.date{
+h2 span{
     position: absolute;
     bottom: 0;
     right: 0;
     font-style: italic;
-    font: Arial;
+    font-family: georgia, serif;
     font-size: 16px;
     color: #998;
     font-weight: normal;
 }
 
-.ul{
+ul{
     margin: 0 0 32px 17px;
+}
+
+dd 
+{ 
+	width: 600px; 
+	float: right; 
+}
+
+.break 
+{ 
+	clear: both; 
+}
+         
+dd.break 
+{ 
+	float: none; margin: 0; height: 15px; 
 }
