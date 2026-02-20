@@ -1,92 +1,95 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src = "jquery-4.0.0.min.js"></script>
-		<script>
-			function checkForm()
+        <script>
+	function checkForm()
+	{
+		var firstName = document.getElementById("firstname").value;
+		var lastName = document.getElementById("lastname").value;
+		var email = document.getElementById("email").value;
+		var password1 = document.getElementById("password1").value;
+		var password2 = document.getElementById("password2").value;		
+
+		var valid = false;		
+		var all_fields = true;
+		if (firstName == "")
+		{
+			all_fields = false;
+			document.getElementById("firstname").style.backgroundColor = "red";
+		}
+		else
+			document.getElementById("firstname").style.backgroundColor = "white";
+
+		if (lastName == "")
+		{
+			all_fields = false;
+			document.getElementById("lastname").style.backgroundColor = "red";
+		}
+		else
+			document.getElementById("lastname").style.backgroundColor = "white";
+
+		if (email == "")
+		{
+			all_fields = false;
+			document.getElementById("email").style.backgroundColor = "red";
+		}
+		else
+			document.getElementById("email").style.backgroundColor = "white";
+
+		if (password1 == "")
+		{
+			all_fields = false;
+			document.getElementById("password1").style.backgroundColor = "red";
+		}
+		else
+			document.getElementById("password1").style.backgroundColor = "white";
+
+		if (password2 == "")
+		{
+			all_fields = false;
+			document.getElementById("password2").style.backgroundColor = "red";
+		}
+		else
+			document.getElementById("password2").style.backgroundColor = "white";
+
+		if (all_fields == true)
+		{
+			if (password1 == password2)
 			{
-				var firstName = $("#firstname").val();
-				var lastName = $("#lastname").val();
-				var email = $("#email").val();
-				var password1 = $("#password1").val();
-				var password2 = $("#password2").val();		
-
-				console.log(password2);
-
-				var valid = false;		
-				var all_fields = true;
-				if (firstName == "")
-				{
-					all_fields = false;
-					$("#firstname").css("background-color", "red");
-				}
-				else
-					$("#firstname").css("background-color","white");
-
-				if (lastName == "")
-				{
-					all_fields = false;
-					$("#lastname").css("background-color", "red");
-				}
-				else
-					$("#lastname").css("background-color", "white");
-				if (email == "")
-				{
-					all_fields = false;
-					$("#email").css("background-color", "red");
-				}
-				else
-					$("#email").css("background-color", "white");
-				if (password1 == "")
-				{
-					all_fields = false;
-					$("#password1").css("background-color", "red");
-				}
-				else
-					$("#password1").css("background-color", "white");
-				if (password2 == "")
-				{
-					all_fields = false;
-					$("#password2").css("background-color", "red");
-				}
-				else
-					$("#password2").css("background-color","white")
-				if (all_fields == true)
-				{
-					if (password1 == password2)
-					{
-						alert("Welcome "+firstName+" "+lastName);
-						valid = true;
-					}
-					else
-					{
-						$("#password1").css("background-color", "red");
-						$("#password2").css("background-color", "red");
-					}
-				}
-				return valid;	
-			}	
-		</script>
+				alert("Welcome "+firstName+" "+lastName);
+				valid = true;
+			}
+			else
+			{
+				document.getElementById("password1").style.backgroundColor = "red";
+				document.getElementById("password2").style.backgroundColor = "red";
+			}
+		}
+		
+		return valid;
+			
+	}	
+	</script>
     </head>
 
     <body>
         <form action = "http://www.google.com" onSubmit = "return checkForm()">
-        <table border=1 align="center">
+        <table border = 1 align = "center">
             <tr>
                 <td>First Name:</td>
-                <td><input type = text id = "firstname" size = 25></td>
+                <td><input type = text id = firstname size = 25</td>
             </tr>
 	    <tr>
                 <td>Last Name:</td>
-                <td><input type = text id = lastname size = 25></td>
+                <td><input type = text id = lastname size = 25</td>
             </tr>
 	    <tr>
                 <td>E-mail:</td>
-                <td><input type = text id = email size = 25></td>
+                <td><input type = text id = email size = 25</td>
             </tr>
             <tr>
                 <td>Password:</td>
-                <td><input type = password id = password1 size = 25></td>
+                <td><input type = password id = password1 size = 25</td>
             </tr>
             <tr>
                 <td>Confirm Password:</td>

@@ -1,63 +1,63 @@
 <html>
 	<head>
-	<script src="jquery-4.0.0.min.js"> </script>
 	<script>
 		function RPS(x)
+		{
+			switch(x)
 			{
-				switch(x)
+				case 1: document.getElementById("YourMove").innerHTML = "Your move: Rock"; break;
+				case 2: document.getElementById("YourMove").innerHTML = "Your move: Paper"; break;
+				case 3: document.getElementById("YourMove").innerHTML = "Your move: Scissors"; break;
+			}
+
+			var opMove = Math.floor(Math.random()*3) + 1; // select between 1 to 3
+			
+			switch(opMove)
+			{
+				case 1: document.getElementById("OpponentMove").innerHTML = "Opponent's move: Rock"; break;
+				case 2: document.getElementById("OpponentMove").innerHTML = "Opponent's move: Paper"; break;
+				case 3: document.getElementById("OpponentMove").innerHTML = "Opponent's move: Scissors"; break;
+			}
+
+			var gameVerdict;
+
+			if (x == opMove) 
+				gameVerdict = 1; // draw
+			else
+			{
+				switch (x)
 				{
-					case 1: $("#YourMove").html("Your move: Rock"); break;
-					case 2: $("#YourMove").html("Your move: Paper"); break;
-					case 3: $("#YourMove").html("Your move: Scissors"); break;		
-				}
-				var opMove = Math.floor(Math.random()*3) + 1; // select between 1 to 3
-				
-				switch(opMove)
-				{
-					case 1: $("#OpponentMove").html("Opponent's move: Rock"); break;
-					case 2: $("#OpponentMove").html("Opponent's move: Paper"); break;
-					case 3: $("#OpponentMove").html("Opponent's move: Scissors"); break;
-				}
-
-				var gameVerdict;
-
-				if (x == opMove) 
-					gameVerdict = 1; // draw
-				else
-				{
-					switch (x)
-					{
-						case 1: // Rock
-							if (opMove == 2) gameVerdict = 2; // loss vs. paper
-							else gameVerdict = 3; // win vs. scissors
-							break;
-
-						case 2: // Paper
-							if (opMove == 3) gameVerdict = 2; // loss vs. scissors
-							else gameVerdict = 3; // win vs. rock
-							break;
-
-						case 3: // Scissors
-							if (opMove == 1) gameVerdict = 2; // loss vs. rock
-							else gameVerdict = 3; // win vs. paper
-							break;
-					}
-				}
-
-				switch (gameVerdict)
-				{
-					case 1:
-						$("#Verdict").html("Verdict = DRAW");
+					case 1: // Rock
+						if (opMove == 2) gameVerdict = 2; // loss vs. paper
+						else gameVerdict = 3; // win vs. scissors
 						break;
 
-					case 2:
-						$("#Verdict").html("Verdict = LOST");
+					case 2: // Paper
+						if (opMove == 3) gameVerdict = 2; // loss vs. scissors
+						else gameVerdict = 3; // win vs. rock
 						break;
 
-					case 3:
-						$("#Verdict").html("Verdict = WON");
+					case 3: // Scissors
+						if (opMove == 1) gameVerdict = 2; // loss vs. rock
+						else gameVerdict = 3; // win vs. paper
+						break;
 				}
 			}
+
+			switch (gameVerdict)
+			{
+				case 1:
+					document.getElementById("Verdict").innerHTML = "Verdict = DRAW";
+					break;
+
+				case 2:
+					document.getElementById("Verdict").innerHTML = "Verdict = LOST";
+					break;
+
+				case 3:
+					document.getElementById("Verdict").innerHTML = "Verdict = WON";
+			}
+		}
 	</script>
 	</head>
 

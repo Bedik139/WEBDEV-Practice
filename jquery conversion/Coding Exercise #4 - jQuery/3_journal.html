@@ -8,24 +8,12 @@
   <h1>What are your thoughts lately?</h1>
   <input type=text size=30 id="textHere" />
   <input type="button" value="Post" onclick="post_entry()" />
-  <div id="post"></div>
 
   <script>
-  function post_entry() {
-      var userEntry = $("#textHere").val(); 
-      
-      $("#post").append(
-          $("<div></div>").text(userEntry).css({
-              "width": "300px",
-              "border-top": "1px solid black",
-              "padding": "10px 0",
-              "border-bottom": "1px solid black",
-              "margin-top": "10px",
-              "text-align": "center"
-          })
-      );
-      $("#textHere").val("");
-  }
+	function post_entry() 
+	{
+		// Your code here
+	}
   </script>
 </body>
 
