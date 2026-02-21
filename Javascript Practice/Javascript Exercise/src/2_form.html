@@ -1,38 +1,67 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel = stylehseet type = "text/css" media = "all" href = "../assets/css/style.css">
-    <script>
-        function checkForm() {
-            var valid = true; 
-            var inputs = document.getElementsByTagName("input"); 
+        <script src="https://code.jquery.com/jquery-4.0.0.slim.min.js"> </script>
+        <script>
+            
+	function checkForm()
+	{
+		var valid = false;
+        var flag = 1;
+        var name;
 
-            for(var i = 0; i < inputs.length; i++) {
-                if(inputs[i].type == "text" || inputs[i].type == "password") {
-                    if(inputs[i].value == "") {
-                        inputs[i].style.backgroundColor = "Red";
-                        valid = false; 
-                    } else {
-                        inputs[i].style.backgroundColor = ""; 
-                    }
-                }
-            }
+		if($("#firstname").val() == "") {
+            $("#firstname").css({
+                "background-color" : "red"
+            });
+            valid = false;
+            flag = 0
+        }
+        if($("#lastname").val() == "") {
+            $("#lastname").css({
+                "background-color" : "red"
+            });
+            valid = false;
+            flag = 0
+        }
+        if($("#email").val() == "") {
+            $("#email").css({
+                "background-color" : "red"
+            });
+            valid = false;
+            flag = 0
 
-            if(valid) {
-                alert("Form is valid! Submitting...");
-                var popup = document.getElementById("myPopup");
-                if(popup) popup.classList.toggle("show");
-            } else {
-                alert("Please fill in the red fields.");
-            }
+        }
+        if($("#password1").val() == "" || $("#password2").val() != $("#password1").val()) {
+            $("#password1").css({
+                "background-color" : "red"
+            });
+            $("#password2").css({
+                "background-color" : "red"
+            });
+            valid = false;
+            flag = 0
+        }
+        if($("#password2").val() == "") {
+            $("#password2").css({
+                "background-color" : "red"
+            });
+            valid = false;
+            flag = 0
+        }
+		if(flag) {
+            valid = true;
+            name = $("#firstname").val() + $("#lastname").val();
+            alert("Welcome" + name);
+        }
 
-            return valid; 
-        }   
+		return valid;			
+	}	
 	</script>
     </head>
+
     <body>
-        <span id="popup"></span>
-        <form onSubmit = "return checkForm()">
+        <form action = "http://www.google.com" onSubmit = "return checkForm()">
         <table border = 1 align = "center">
             <tr>
                 <td>First Name:</td>

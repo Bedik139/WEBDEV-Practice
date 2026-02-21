@@ -9,8 +9,15 @@ const User = function(name) {
 
 // TODO: Create object constructors as you see fit
 
+const Post = function(title, content, date){
+	this.title = title;
+	this.content = content;
+	this.date = date;
+}
 
-
+const Message = function(content){
+	this.content = content;
+}
 
 // GIVEN: These will store all the posts/messages locally
 let posts = [];
@@ -36,9 +43,8 @@ document.addEventListener("DOMContentLoaded",function() {
 	
 	// TODO: Set the Create Post's date to the current date
 	const today = new Date();
+	$("#post-date").val(formatDate(today)); //
 	// Use the given "formatDate" function present in this file to convert "today" to the correct format
-
-
 	// .________________________________________________________________________.
 	// ||																	   ||
 	// || Fill up the element behaviours below, you may change it if necessary ||
@@ -49,15 +55,33 @@ document.addEventListener("DOMContentLoaded",function() {
 	document.querySelector("#submit-post")?.addEventListener("click", function(e){
 		e.preventDefault();  // Prevents page refresh
 		// HINT: Fill up the contents of validateFields() first
+		title = $("#post-title").val();
+		content = $("#post-body").val();
 		if (validateFields(title, content)) {
 			// HINT: If the number of Posts is ZERO, clear post-container first
-
+			if(postCtr === 0){ $("#post-container").empty(); } 
 			// Create a new post and add it to posts
-
+			let newPost = new Post(title, content, $("#post-date").val());
+			newPost.user = currentUser;
+			newPost.order = ++postCtr;
+			posts.push(newPost);
 			// Refresh the displayed posts
 			refreshDisplay(posts);  // Fill up the contents of refreshDisplay() first
-
 			// Reset the contents of Create Post
+			resetCreatePost();
+		}
+	});
+
+	document.querySelector("#send-msg")?.addEventListener("click", function(e){
+		e.preventDefault();  // Prevents page refresh
+		content = $("#type-msg").val();
+		if (validateFieldsMsg(content)) {	
+			let newMsg = new Message(content);
+			newMsg.user = currentUser;
+			newMsg.date = new Date();
+			messages.push(newMsg);
+			displayMsg(newMsg);
+			clearMsg();
 		}
 	});
 
@@ -87,12 +111,6 @@ document.addEventListener("DOMContentLoaded",function() {
 		scrollToTop();  // Fill up the contents of scrollToTop() first
 	}); 
 
-	// NOTE: Change the function below if you want to implement Messenger
-	// Called when Send Message button is clicked
-	document.querySelector("#send-msg")?.addEventListener("click", function(e) {
-		e.preventDefault();  // Prevents page refresh
-	}); 
-
 
 	// .__________________________________________________________.
 	// ||														 ||
@@ -105,25 +123,35 @@ document.addEventListener("DOMContentLoaded",function() {
 		// HINT: Return 'true' if title and content is NOT empty
 		// else, use the showError() function to show the proper
 		// error text. Then, return false
-
 		// If title is invalid, show errorTitle
-		showError(errorTitle);
-
-		// If content is invalid, show errorContent
-		showError(errorContent);
-
-		// If invalid, return false
+		if(title === "" || title === null) {
+		showError(errorTitle); // If invalid, return false
 		return false;
+		}
+		if (content === "" || content === null){ 
+		showError(errorContent); // If invalid, return false
+		return false;
+		}
 
 		// If valid, return true
 		return true;
 	}
 
+	function validateFieldsMsg(content){
+		if(content === "" || content === null){
+			showError("Enter a Valid Message");
+			return false;
+		}
+		return true;
+	}
+
 	// TODO: Complete the sortByPostDate() function below
 	function sortByPostDate() {
-		// Sort posts by their Date
-		
-		// Refresh the displayed posts according to the result of the sorting
+		let sortedPosts = [...posts].sort((a, b) => {
+			if (a.date > b.date) return 1;
+			if (a.date < b.date) return -1;
+			return 0;
+		});
 		refreshDisplay(sortedPosts);  // Fill up the contents of refreshDisplay() first
 	}
 
@@ -132,40 +160,64 @@ document.addEventListener("DOMContentLoaded",function() {
 		let post, number;
 		let sortedPosts = [];
 
-		// HINT: Use splice() for inserting values to an array index
-
-		// Refresh the displayed posts according to the result of the sorting
+		sortedPosts = [...posts].sort((a,b)=> {
+			if(a.order > b.order) return 1;
+			if(a.order < b.order) return -1;
+			return 0;
+		});		// Refresh the displayed posts according to the result of the sorting
 		refreshDisplay(sortedPosts);  // Fill up the contents of refreshDisplay() first
 	}
 
 	// TODO: Complete the applyFilter() function below
 	function applyFilter(selectedValue) {
 		// If, selectedValue is equal to selectNone, show all posts
-
+		if(selectedValue === selectNone){
+			refreshDisplay(posts);
+		}
 		// Else, (meaning, if a name filter is selected)
+		else{
 		let filteredPosts = [];
 		// For each post in posts, if the post name is equal to selectedValue,
 		// add it to filteredPosts (filteredPosts.push(post);)
+		for(var i=0;i<posts.length;i++){
+			if(posts[i].user.name === selectedValue){
+				filteredPosts.push(posts[i]);
+			}
+		}
 			
 		// Refresh the displayed posts according to the result of filtering
 		refreshDisplay(filteredPosts);  // Fill up the contents of refreshDisplay() first
-		
+		}
 	}
 
 	// TODO: Complete the scrollToTop() function below
 	function scrollToTop() {
-
+		window.scrollTo(0,0);
 	}
 
 	// Refreshes the post-container according to the post contents of displayedPosts
 	function refreshDisplay(displayedPosts) {
 		// If displayedPosts is empty, show "▓▒░(°◡°)░▒▓<br>Wow such empty..."
 		// in the post-container (with a "filler-text" class)
-
 		// Else, add each post inside displayedPosts to post-container
+		$("#post-container").empty();
+		if (displayedPosts.length === 0) {
+			$("#post-container").html('<div class="filler-text">▓▒░(°◡°)░▒▓<br>Wow such empty...</div>');
+		} else {
+			displayedPosts.forEach(post => displayPost(post));
+		}
 	}
 	function displayPosts(newPosts) {
 		// Clear post-container and add each post inside newPosts inside it instead
+		$("#post-container").empty();
+
+		for (var i = 0; i < newPosts.length; i++) {
+        displayPost(newPosts[i]);
+    	}
+	}
+
+	function clearMsg(){
+		$("#type-msg").val("");
 	}
 	function displayPost(newPost) {
 
@@ -180,16 +232,57 @@ document.addEventListener("DOMContentLoaded",function() {
 
 		// Set the proper content/values to the correct elements/tags
 		// HINT: You can use $(element2).text("Text to Add"); OR $(imgElement).attr("src", "./images/user.png");
-
-		
+	
 		// Place the outermost element (single-post-main) inside post-container
 		// $("div#post-container").append(single-post-main);
+
+		let a = $("<div>").addClass("single-post-main");
+		let b = $("<div>").addClass("single-post");
+		let c = $("<div>").addClass("sp-left");
+		let imge = $("<img>").addClass("sp-picture").attr("src", newPost.user.img);
+		let d = $("<div>").addClass("sp-right");
+		let e = $("<div>").addClass("sp-right-content").addClass("sp-body").text(newPost.content);
+		let f = $("<div>").addClass("sp-title").text(newPost.title);
+		let g = $("<div>").addClass("sp-right-bottom");
+		let h = $("<div>").addClass("sp-name").text(newPost.user.name);
+		let i = $("<div>").addClass("sp-date").text(newPost.date);
+
+		c.append(imge);
+		g.append(h).append(i);
+		d.append(f).append(e).append(g);
+		b.append(c).append(d);
+		a.append(b);
+
+		$("#post-container").append(a);
+	}
+
+	function displayMsg(newMsg){
+		let a = $("<div>").addClass("single-msg-main");
+		let b = $("<div>").addClass("msg-content").text(newMsg.content);
+		let c = $("<div>").addClass("msg-footer");
+		let d = $("<div>").addClass("msg-poster").text(newMsg.user.name);
+		let e = $("<div>").addClass("msg-date").text(formatDateMsg(newMsg.date));
+
+
+		a.append(b);
+		a.append(c);
+		c.append(d).append(e);
+		$(".msngr-body").append(a)
 	}
 
 	// Reset the values of Create Post
 	function resetCreatePost() {
 		// Empty the contents of Title and Content
 		// Set the Date to the current Date today
+		var now = new Date();
+		$("#post-title").val("");
+		$("#post-body").val("");
+		$("#post-date").val(formatDate(now));
+	}
+
+	function formatDateMsg(today) {  // GIVEN: For date formatting
+		let formattedDate = today.getFullYear().toString() + '-' + (today.getMonth() + 1).toString().padStart(2, 0) + '-' + today.getDate().toString().padStart(2, 0) + ' | Time: ' + today.getHours().toString().padStart(2, 0) + ':' + today.getMinutes().toString().padStart(2, 0);
+		return formattedDate;
 	}
 
 
