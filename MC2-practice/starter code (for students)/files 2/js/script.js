@@ -10,11 +10,21 @@ var User = function(name) {
 			}
 
 // TODO: Create object constructors as you see fit
+
 var Post = function(title, content, date){
 	this.title = title;
 	this.content = content;
 	this.date = date;
 }
+
+var Message = function(content, date, user){
+	this.content = content;
+	this.date = date;
+	this.user = user;
+
+}
+
+
 
 // GIVEN: These will store all the posts/messages locally
 var posts = [];
@@ -31,6 +41,7 @@ var selectNone = "None";
 var selectRachel = "Rachel";
 var selectJack = "Jack";
 var selectAshley = "Ashley";
+
 
 $(document).ready(function() {
 	// GIVEN: Do not remove
@@ -49,8 +60,11 @@ $(document).ready(function() {
 	// TODO: Complete the functionality when clicking Submit Post
 	$("#submit-post").click(function(e) {
 		e.preventDefault();  // Prevents page refresh
-		title = $("#post-title").val();
-		content = $("#post-body").val();
+		let content = $("#post-body").val();
+		let title = $("#post-title").val();
+		let date = new Date();
+		formatDate(date);
+
 		// HINT: Fill up the contents of validateFields() first
 		if (validateFields(title, content)) {
 			// HINT: If the number of Posts is ZERO, clear post-container first
@@ -58,7 +72,7 @@ $(document).ready(function() {
 				$("#post-container").empty();
 			}
 			// Create a new post and add it to posts
-			let newPost = new Post(title, content, 	formatDate(new Date()));
+			var newPost = new Post(title, content, formatDate(date));
 			newPost.user = currentUser;
 			newPost.order = ++postCtr;
 			posts.push(newPost);
@@ -68,7 +82,6 @@ $(document).ready(function() {
 			resetCreatePost();
 		}
 	});
-
 	// Called when Sort by Date button is clicked
 	$("div#sort-by-date").click(function(e) {
 		sortByPostDate();  // Fill up the contents of sortByPostDate()
@@ -99,6 +112,16 @@ $(document).ready(function() {
 	// Called when Send Message button is clicked
 	$("#send-msg").click(function(e) {
 		e.preventDefault();  // Prevents page refresh
+		let content = $("#type-msg").val();
+		let date = new Date();
+		
+		if(validateFieldsMsg(content)){
+			var newMsg = new Message(content, formatDate(date), currentUser);
+			messages.push(newMsg);
+			displayMessages(newMsg);
+
+			$("#type-msg").val("");
+		}
 	}); 
 
 
@@ -113,26 +136,41 @@ $(document).ready(function() {
 		// HINT: Return 'true' if title and content is NOT empty
 		// else, use the showError() function to show the proper
 		// error text. Then, return false
+
 		// If title is invalid, show errorTitle
-		if($("#post-title").val() == 0){
+		if(title === ""){
 			showError(errorTitle);
-			// If invalid, return false
 			return false;
 		}
 		// If content is invalid, show errorContent
-		if($("#post-body").val() == 0){
+		if(content === ""){
 			showError(errorContent);
-			// If invalid, return false
 			return false;
 		}
+
+		// If invalid, return false
 		// If valid, return true
 		return true;
 	}
 
+	function validateFieldsMsg(content) {
+		// If content is invalid, show errorContent
+		if(content === ""){
+			showError("Please Write a message content");
+			return false;
+		}
+
+		// If invalid, return false
+		// If valid, return true
+		return true;
+	}
+
+
+
 	// TODO: Complete the sortByPostDate() function below
 	function sortByPostDate() {
 		// Sort posts by their Date
-		posts = [...posts].sort((a,b) => new Date(a)- new Date(b));
+		var sortedPosts = [...posts].sort((a,b) => new Date(a.date) - new Date(b.date));
 		// Refresh the displayed posts according to the result of the sorting
 		refreshDisplay(sortedPosts);  // Fill up the contents of refreshDisplay() first
 	}
@@ -143,7 +181,7 @@ $(document).ready(function() {
 		var sortedPosts = [];
 
 		// HINT: Use splice() for inserting values to an array index
-		sortedPosts = [...posts].sort((a, b) => a.order - b.order);
+		sortedPosts = [...posts].sort((a,b) => a.order - b.order);
 		// Refresh the displayed posts according to the result of the sorting
 		refreshDisplay(sortedPosts);  // Fill up the contents of refreshDisplay() first
 	}
@@ -152,48 +190,53 @@ $(document).ready(function() {
 	function applyFilter(selectedValue) {
 		// If, selectedValue is equal to selectNone, show all posts
 		if(selectedValue == selectNone){
-			refreshDisplay(posts);
+			displayPosts(posts);
 		}
+
+		// Else, (meaning, if a name filter is selected)
 		else{
 			var filteredPosts = [];
-			filteredPosts = posts.filter(post => post.user.name === selectedValue);
-			refreshDisplay(filteredPosts);
+			for(i=0;i<posts.length;i++){
+				if(posts[i].user.name === selectedValue){
+					filteredPosts.push(posts[i]);
+				}
+			}
+			refreshDisplay(filteredPosts)
 		}
-		// Else, (meaning, if a name filter is selected)
 		// For each post in posts, if the post name is equal to selectedValue,
-		// add it to filteredPosts (filteredPosts.push(post);)		
-		// Refresh the displayed posts according to the result of filtering
-		refreshDisplay(filteredPosts);  // Fill up the contents of refreshDisplay() first
-		
+		// add it to filteredPosts (filteredPosts.push(post);)
+			
+		// Refresh the displayed posts according to the result of filtering		
 	}
 
 	// TODO: Complete the scrollToTop() function below
 	function scrollToTop() {
-		$('html, body').animate({scrollTop:0}, 400);
+		window.scrollTo(0,0);
 	}
+
 
 	// Refreshes the post-container according to the post contents of displayedPosts
 	function refreshDisplay(displayedPosts) {
-		// If displayedPosts is empty, show "▓▒░(°◡°)░▒▓<br>Wow such empty..."
-		// in the post-container (with a "filler-text" class)
 		$("#post-container").empty();
-		if(postCtr == 0){
+		// If displayedPosts is empty, show "▓▒░(°◡°)░▒▓<br>Wow such empty..."
+		if(displayPosts.length===0){
 			$("#post-container").append("<p class='filler-text'>▓▒░(°◡°)░▒▓<br>Wow such empty...</p>");
 		}
-		else {
+		else{
 			displayPosts(displayedPosts);
-		}
+			}
+		// in the post-container (with a "filler-text" class)
 		// Else, add each post inside displayedPosts to post-container
+
 	}
 	function displayPosts(newPosts) {
 		// Clear post-container and add each post inside newPosts inside it instead
 		$("#post-container").empty();
-		newPosts.forEach(element => {
-        displayPost(element);
-   		});
+		for(i=0;i<newPosts.length;i++){
+			displayPost(newPosts[i]);
+		}
 	}
 	function displayPost(newPost) {
-
 		// Create elements/tags
 		// HINT: You can use document.createElement("tag");
 
@@ -209,35 +252,68 @@ $(document).ready(function() {
 		
 		// Place the outermost element (single-post-main) inside post-container
 		// $("div#post-container").append(single-post-main);
-		let a = $("<div>").addClass("single-post-main");
-		let b = $("<div>").addClass("single-post");
-		let c = $("<div>").addClass("sp-left");
-		let d = $("<img>").addClass("sp-picture").attr('src', newPost.user.img);
-		let e = $("<div>").addClass("sp-right");
-		let f = $("<div>").addClass("sp-right-content");
-		let g = $("<div>").addClass("sp-title").text(newPost.title);
-		let h = $("<div>").addClass("sp-body").text(newPost.content);
-		let i = $("<div>").addClass("sp-right-bottom");
-		let j = $("<div>").addClass("sp-name").text(newPost.user.name);
-		let k = $("<div>").addClass("sp-date").text(newPost.date);
 
-		a.append(b);
-		b.append(c , e);
-		c.append(d);
-		e.append(f, g, h);
-		e.append(i);
-		i.append(j, k);
-		$("#post-container").append(a);
+		let correctDateFormat = newPost.date.replace("T"," | ");
+
+		const display = "<div class= single-post-main>" +
+							"<div class=single-post>" +
+								"<img class=sp-left src="+ newPost.user.img +">" +
+									"<div class=sp-right>" +
+										"<div class=sp-right-content>" +
+											"<div class=sp-title>" + newPost.title +
+												"<div class=sp-body>" + newPost.content +
+												"</div>" +
+											"<div class=sp-right-bottom>" +
+													"<div class=sp-name>" + newPost.user.name + "</div>" +
+													"<div class=sp-date>" + correctDateFormat + 
+											"</div>" +
+										"</div>" +	
+									"</div>" +
+								"</div>" +
+							"</div>" +
+						"</div>" +
+					"</div>"
+
+		$("#post-container").append(display);
+	}
+
+	function displayMessages(newMsg) {
+		// Create elements/tags
+		// HINT: You can use document.createElement("tag");
+
+		// Add classes to your created elements so you don't have to style repeatedly
+		// HINT: You can use $(element1).addClass("class-name");
+
+		// Set the proper hierarchy of the created elements
+		// HINT: $(element1).append(element2); will place element2 within element1
+
+		// Set the proper content/values to the correct elements/tags
+		// HINT: You can use $(element2).text("Text to Add"); OR $(imgElement).attr("src", "./images/user.png");
+
+		
+		// Place the outermost element (single-post-main) inside post-container
+		// $("div#post-container").append(single-post-main);
+		
+		let correctDateFormat = newMsg.date.replace("T"," | ");
+
+			const display = "<div class= single-msg-main>" +
+							"<div class=msg-content>" + newMsg.content + "</div>" +
+							"<div class=msg-footer>" +
+										"<div class=msg-poster>" + newMsg.user.name + "</div>" +
+										"<div class=msg-date>" + correctDateFormat + "</div>"+
+							"</div>" +
+						"<div>"
+		$(".msngr-body").append(display);
 	}
 
 	// Reset the values of Create Post
 	function resetCreatePost() {
 		// Empty the contents of Title and Content
 		// Set the Date to the current Date today
-		var today = new Date();
-		$("#post-body").empty();
+		var date = new Date();
 		$("#post-title").empty();
-		$("#post-date").val(formatDate(today));
+		$("#post-body").empty();
+		$("#post-date").val(formatDate(date));
 	}
 
 
