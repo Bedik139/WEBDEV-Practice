@@ -1,0 +1,113 @@
+h1 {
+    font-size: 3rem;
+}
+
+#contentContainer {
+    width: 50rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#debtForm {
+    width: 50rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+input {
+    width: 15rem;
+    height: 1.8rem;
+    padding: 0.2rem;
+
+    border-radius: 3px;
+
+    box-sizing: border-box;
+
+    border-style: none;
+    background-color: #e3e3e3;
+}
+
+#debtForm input {
+    margin-bottom: 1rem;
+}
+
+.submitBtn {
+    width: 10rem;
+    color: white;
+    background-color: green;
+}
+
+.submitBtn:hover {
+    width: 10rem;
+    color: black;
+    outline: 1px solid green;
+    background-color: white;
+}
+
+.submitBtn:disabled {
+    cursor: not-allowed;
+    color: #A8A8A8;
+    background-color: #E3E3E3;
+    border: 2px solid #E3E3E3;
+}
+
+hr {
+    width: 100%;
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+#debtList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.debtItemContainer {
+    width: 35rem;
+    height: 7rem;
+    padding: 1rem;
+    outline: 1px solid rgb(26, 195, 201);
+    border-radius: 5px;
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.debtInfo {
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.error {
+    color: red;
+}
+
+.dateLabel {
+    font-style: italic;
+    font-size: .8rem;
+}
+
+.nameLabel {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.debtAmount {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}

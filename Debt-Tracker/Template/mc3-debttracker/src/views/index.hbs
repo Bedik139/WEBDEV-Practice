@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="static/css/index.css" />
+<script src="static/js/debtForm.js" defer> </script>
+<div id="contentContainer">
+    <h1> Debt Tracker </h1>
+    <!-- Add Debt Form  -->
+    <div id="addDebtContainer">
+        <form id="debtForm" name="debtForm">
+            <input id="accountName" name="accountName" type="text" placeholder="Account Name" />
+            <input id="debtAmount" name="debtAmount" type="number" placeholder="Debt Amount" />
+            <p class="error" id="form_error"></p>
+            <input class="submitBtn" id="submitBtn" type="submit" value="Add Debt"/>
+        </form>
+    </div>
+    <hr>
+    <div id="debtList">
+        <!--
+            TODO: Fill in the appropriate handlebars expression(s).
+            The list of accounts should be rendered here.
+            If the list is empty, a paragraph element that states, 'No debts to display' should be rendered instead.
+        -->
+
+        {{!-- Uncomment the block below for example items --}}
+        {{!-- <div class="debtItemContainer">
+            <div class="debtInfo">
+                <span class="dateLabel"> Last Updated: 3/19/2024, 7:34:42 PM </span>
+                <span class="nameLabel"> John Smith </span> 
+            </div>
+            <span class="debtAmount">
+                ₱550.00 
+            </span>
+        </div>
+
+        <div class="debtItemContainer">
+            <div class="debtInfo">
+                <span class="dateLabel"> Last Updated: 3/16/2024, 4:44:23 PM </span>
+                <span class="nameLabel"> Juan Dela Cruz </span> 
+            </div>
+            <span class="debtAmount">
+                ₱1332.45 
+            </span>
+        </div> --}}
+
+    </div>
+</div>
